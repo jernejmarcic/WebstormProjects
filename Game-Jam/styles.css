@@ -7,11 +7,20 @@
     --nav-hover-text-color: rgba(0, 0, 0, 1);
 }
 
+
+
 body {
     font-family: Arial, sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
     transition: background-color 0.5s, color 0.5s;
+}
+h1 {
+    font-family: Arial, sans-serif;
+    color: var(--h1-color);
+}
+p {
+    width: var(--p-width);
 }
 
 .nav-bar {
