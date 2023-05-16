@@ -20,7 +20,8 @@ h1 {
     color: var(--h1-color);
 }
 p {
-    width: var(--p-width);
+    margin-left: var(--p-margin);
+    margin-right: var(--p-margin);
 }
 
 .nav-bar {

@@ -42,4 +42,5 @@ switchPage('home');
 
 document.getElementById("paragraphWidth").oninput = function() {
     document.documentElement.style.setProperty('--p-width', this.value + 'px');
+    document.documentElement.style.setProperty('--p-margin', (window.innerWidth - this.value) / 2 + 'px');
 }
