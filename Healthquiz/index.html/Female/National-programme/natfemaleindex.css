@@ -1,0 +1,43 @@
+ody {
+    background-color: #11111b;
+}
+
+h1 {
+    text-align: center;
+    text-decoration-color: #cdd6f4;
+    color: #cdd6f4;
+}
+h2 {
+    text-align: center;
+    text-decoration-color: #cdd6f4;
+    color: #cdd6f4;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #cdd6f4;
+}
+input[type="text"] {
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #cdd6f4;
+    color: #11111b;
+}
+button[type="submit"] {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #cdd6f4;
+    color: #11111b;
+    cursor: pointer;
+}
+#answer-list {
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: 20px;
+    color: #cdd6f4;
+}
+

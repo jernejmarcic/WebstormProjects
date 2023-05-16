@@ -1,0 +1,139 @@
+:root {
+    --background-color: rgba(255, 255, 255, 1);
+    --text-color: rgba(0, 0, 0, 1);
+    --nav-background-color: rgba(51, 51, 51, 1);
+    --nav-text-color: rgba(255, 255, 255, 1);
+    --nav-hover-background-color: rgba(221, 221, 221, 1);
+    --nav-hover-text-color: rgba(0, 0, 0, 1);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.nav-bar {
+    background-color: var(--nav-background-color);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-bar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-bar li {
+    margin: 0 20px;
+}
+
+.nav-bar a {
+    display: block;
+    color: var(--nav-text-color);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.nav-bar a:hover {
+    background-color: var(--nav-hover-background-color);
+    color: var(--nav-hover-text-color);
+}
+
+.page {
+    margin-top: 20px;
+    opacity: 0;
+    transition: opacity 0.
+    5s;
+    position: absolute;
+    width: 100%;
+}
+
+.page.show {
+    opacity: 1;
+}
+
+.animated-text {
+    animation: fadeIn 2s;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.toggle-switch {
+    position: relative;
+    width: 60px;
+    height: 34px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-switch label {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 1);
+    transition: .4s;
+}
+
+.toggle-switch label:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: rgba(255, 255, 255, 1);
+    transition: .4s;
+}
+
+.toggle-switch input:checked + label {
+    background-color: rgba(0, 255, 0, 1);
+}
+
+.toggle-switch input:checked + label:before {
+    transform: translateX(26px);
+}
+
+/* The rest of your CSS... */
+
+.page {
+    margin-top: 20px;
+    opacity: 0;
+    transition: opacity 0.5s;
+    position: absolute;
+    width: 100%;
+}
+
+.page.show {
+    opacity: 1;
+}
+
+.page.hide {
+    opacity: 0;
+}
+
+.animated-text {
+    animation: fadeIn 2s;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* The rest of your CSS... */

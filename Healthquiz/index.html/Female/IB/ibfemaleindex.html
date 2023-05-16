@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="ibfemaleindex.css">
+    <meta charset="UTF-8">
+    <title>ibmaleindex</title>
+</head>
+<body>
+<div style="text-align: center;">
+    <h1>Female, IB</h1>
+    <h2>Answer the questions honestly, write the answers in numbers ONLY</h2>
+</div>
+<div style="text-align: center;">
+<form>
+    <label for="answer1">Age (years):</label>
+    <input type="text" id="answer1" name="answer1" placeholder="Age, in numbers"><br>
+
+    <label for="answer2">Hours spent studying:</label>
+    <input type="text" id="answer2" name="answer2" placeholder="Hours spent studying, in numbers"><br>
+
+    <label for="answer3">Hours spent sleeping:</label>
+    <input type="text" id="answer3" name="answer3" placeholder="Hours spent sleeping, in numbers"><br>
+
+    <label for="answer4">Average grade:</label>
+    <input type="text" id="answer4" name="answer4" placeholder="Average grade, in numbers"><br>
+    <button type="submit">Submit</button>
+</form>
+</div>
+
+<p id="answer-list"></p>
+
+<script>
+    const form = document.querySelector('form');
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const answer1 = document.getElementById('answer1').value;
+        const answer2 = document.getElementById('answer2').value;
+        const answer3 = document.getElementById('answer3').value;
+        const answer4 = document.getElementById('answer4').value;
+
+        const answerList = `(${answer1}, ${answer2}, ${answer3}, ${answer4})`;
+        document.getElementById('answer-list').textContent = answerList;
+    });
+</script>
+
+</body>
+</html>
