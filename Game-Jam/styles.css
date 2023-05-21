@@ -14,17 +14,15 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     transition: background-color 0.5s, color 0.5s;
+    background-image: url("assets/74-749270_jungle-leaf-png.png");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 h1 {
     color: var(--h1-color);
     text-align: center;
 }
-#home {
-    background-image: url("assets/74-749270_jungle-leaf-png.png");
-    background-repeat: no-repeat;
-    background-size: cover;
 
-}
 p {
     margin-left: var(--p-margin);
     margin-right: var(--p-margin);
@@ -270,3 +268,41 @@ p {
     margin: auto; /* This will center your switch */
 }
 
+#menuContainer {
+    position: absolute;
+    z-index: 1;
+    cursor: move;
+}
+
+#menuButton {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#menuContent {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+#menuContent a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.menu-hidden {
+    display: none;
+}
