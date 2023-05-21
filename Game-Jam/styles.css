@@ -10,18 +10,26 @@
 
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: Montserrat, sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
     transition: background-color 0.5s, color 0.5s;
 }
 h1 {
-    font-family: Arial, sans-serif;
     color: var(--h1-color);
+    text-align: center;
+}
+#home {
+    background-image: url("assets/74-749270_jungle-leaf-png.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+
 }
 p {
     margin-left: var(--p-margin);
     margin-right: var(--p-margin);
+    text-align: justify;
+
 }
 
 .nav-bar {
@@ -261,3 +269,4 @@ p {
     height: 28px;
     margin: auto; /* This will center your switch */
 }
+
