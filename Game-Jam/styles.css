@@ -335,14 +335,19 @@ p {
     height: 100vh;
 }
 
-#progress-bar {
+#progress-bar-container {
     position: fixed;
     top: 0;
     left: 0;
     height: 4px;
-    width: 0%;
-    background: rgba(0, 255, 0, 0.7);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-
-
+#progress-bar {
+    height: 100%;
+    width: 0;
+    background: rgba(0, 255, 0, 0.7);
+}
