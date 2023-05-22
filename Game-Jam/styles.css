@@ -29,6 +29,12 @@ p {
     text-align: justify;
 
 }
+ul {
+    margin-left: var(--p-margin);
+    margin-right: var(--p-margin);
+    text-align: justify;
+
+}
 
 .nav-bar {
     background-color: var(--nav-background-color);
