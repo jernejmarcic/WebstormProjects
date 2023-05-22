@@ -14,7 +14,7 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     transition: background-color 0.5s, color 0.5s;
-    background-image: url("assets/74-749270_jungle-leaf-png.png");
+    /* background-image: url("assets/74-749270_jungle-leaf-png.png"); */
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -306,3 +306,43 @@ p {
 .menu-hidden {
     display: none;
 }
+
+.leaf {
+    position: absolute;
+    background: url('assets/kindpng_1316953.png');
+    background-size: cover;
+    width: 20px;
+    height: 40px;
+    transform: rotateZ(360deg);
+}
+
+.leaf.big {
+    width: 40px;
+    height: 80px;
+}
+
+.leaf.green {
+    filter: hue-rotate(20deg);
+}
+
+.leaf.yellow {
+    filter: hue-rotate(-20deg);
+}
+
+#jungle-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+#progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 0%;
+    background: rgba(0, 255, 0, 0.7);
+}
+
+
+
