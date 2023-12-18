@@ -1,8 +1,136 @@
-body {
-  background-color: #fe9801;
-  color: black;
-  text-align: center;
+// Define color variables for light and dark themes
+$light-background: #83d8ff; // Sky blue for light mode
+$dark-background: #091921; // Night theme for dark mode
+$light-text: black;
+$dark-text: white;
+$light-accent: #ccda46;
+$dark-accent: #555;
+$light-input: #f5f5c6;
+$dark-input: #444;
+$error-color: red;
+$correct-color: darkgreen;
+
+@mixin material-shadow {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
+
+@mixin material-button {
+  background-color: $light-accent;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: $dark-text;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: darken($light-accent, 10%);
+  }
+
+  body.dark-theme & {
+    background-color: $dark-accent;
+    color: $light-text;
+
+    &:hover {
+      background-color: lighten($dark-accent, 10%);
+    }
+  }
+}
+
+@mixin material-input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid $light-accent;
+  padding: 10px;
+  margin: 5px 0;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    border-bottom-color: darken($light-accent, 20%);
+  }
+
+  body.dark-theme & {
+    border-bottom-color: $dark-accent;
+
+    &:focus {
+      border-bottom-color: lighten($dark-accent, 20%);
+    }
+  }
+}
+
+
+// Define a mixin for reusable box styles
+@mixin box-shadow {
+  box-shadow: black 5px 8px 5px;
+}
+
+body {
+  background-color: $light-background;
+  color: $light-text;
+  text-align: center;
+
+  &.dark-theme {
+    background-color: $dark-background;
+    color: $dark-text;
+  }
+}
+
+.toggle-switch {
+  position: relative;
+  width: 60px;
+  height: 28px;
+  margin: auto;
+  background: $light-background; // Light mode background
+  border-radius: 24px;
+  transition: background-color 0.3s linear;
+
+
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  label {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 24px;
+    overflow: hidden; // Hide the overflow to keep rounded edges
+
+    &:before {
+      content: "☀️"; // Sun icon
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      left: 4px;
+      bottom: 4px;
+      border-radius: 50%;
+      background: linear-gradient(to left, rgba(255, 255, 0, 0.8), rgba(255, 255, 255, 0)); // Gradient for sun
+      transition: .4s;
+      text-align: center;
+      line-height: 20px;
+    }
+  }
+
+  input:checked + label {
+    background: $dark-background; // Dark mode background
+
+
+    &:before {
+      content: "🌑"; // Moon icon
+      transform: translateX(32px); // Move to the right
+      background: linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0)); // Gradient for moon
+    }
+  }
+}
+
 
 .container {
   display: flex;
@@ -13,7 +141,11 @@ body {
 .heading {
   margin-bottom: 20px;
   font-size: 3rem;
-  color: black;
+  color: $light-text;
+
+  body.dark-theme & {
+    color: $dark-text;
+  }
 }
 
 .header {
@@ -23,13 +155,17 @@ body {
 
 .timer, .errors, .accuracy,
 .cpm, .wpm {
-  background-color: #ccda46;
+  background-color: $light-accent;
   height: 60px;
   width: 70px;
   margin: 8px;
   padding: 12px;
   border-radius: 20%;
-  box-shadow: black 5px 8px 5px;
+  @include box-shadow;
+
+  body.dark-theme & {
+    background-color: $dark-accent;
+  }
 }
 
 .cpm, .wpm {
@@ -49,15 +185,19 @@ body {
 }
 
 .quote {
-  background-color: #ccda46;
+  background-color: $light-accent;
   font-size: 1.5rem;
   margin: 10px;
   padding: 25px;
-  box-shadow: black 5px 8px 5px;
+  @include box-shadow;
+
+  body.dark-theme & {
+    background-color: $dark-accent;
+  }
 }
 
 .input_area {
-  background-color: #f5f5c6;
+  background-color: $light-input;
   height: 80px;
   width: 40%;
   font-size: 1.5rem;
@@ -65,7 +205,11 @@ body {
   margin: 15px;
   padding: 20px;
   border: 0px;
-  box-shadow: black 5px 8px 5px;
+  @include box-shadow;
+
+  body.dark-theme & {
+    background-color: $dark-input;
+  }
 }
 
 .restart_btn {
@@ -74,14 +218,14 @@ body {
   font-size: 1.5rem;
   padding: 10px;
   border: 0px;
-  box-shadow: black 5px 8px 5px;
+  @include box-shadow;
 }
 
 .incorrect_char {
-  color: red;
+  color: $error-color;
   text-decoration: underline;
 }
 
 .correct_char {
-  color: darkgreen;
+  color: $correct-color;
 }

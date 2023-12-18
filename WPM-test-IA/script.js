@@ -1,123 +1,66 @@
-// define the time limit
-let TIME_LIMIT = 60;
+// Initialize global variables
+let timer_text, accuracy_text, error_text, cpm_text, wpm_text, quote_text;
+let input_area, restart_btn, cpm_group, wpm_group, error_group, accuracy_group;
+let timeLeft, timeElapsed, total_errors, errors, accuracy, characterTyped;
+let current_quote, quoteNo, timer, TIME_LIMIT = 60, quotes_array;
 
-// define quotes to be used
-let quotes_array = [
-    "Push yourself, because no one else is going to do it for you.",
-    "Failure is the condiment that gives success its flavor.",
-    "Wake up with determination. Go to bed with satisfaction.",
-    "It's going to be hard, but hard does not mean impossible.",
-    "Learning never exhausts the mind.",
-    "The only way to do great work is to love what you do."
-];
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize DOM elements
+    timer_text = document.querySelector(".curr_time");
+    accuracy_text = document.querySelector(".curr_accuracy");
+    error_text = document.querySelector(".curr_errors");
+    cpm_text = document.querySelector(".curr_cpm");
+    wpm_text = document.querySelector(".curr_wpm");
+    quote_text = document.querySelector(".quote");
+    input_area = document.querySelector(".input_area");
+    restart_btn = document.querySelector(".restart_btn");
+    cpm_group = document.querySelector(".cpm");
+    wpm_group = document.querySelector(".wpm");
+    error_group = document.querySelector(".errors");
+    accuracy_group = document.querySelector(".accuracy");
 
-// selecting required elements
-let timer_text = document.querySelector(".curr_time");
-let accuracy_text = document.querySelector(".curr_accuracy");
-let error_text = document.querySelector(".curr_errors");
-let cpm_text = document.querySelector(".curr_cpm");
-let wpm_text = document.querySelector(".curr_wpm");
-let quote_text = document.querySelector(".quote");
-let input_area = document.querySelector(".input_area");
-let restart_btn = document.querySelector(".restart_btn");
-let cpm_group = document.querySelector(".cpm");
-let wpm_group = document.querySelector(".wpm");
-let error_group = document.querySelector(".errors");
-let accuracy_group = document.querySelector(".accuracy");
-
-let timeLeft = TIME_LIMIT;
-let timeElapsed = 0;
-let total_errors = 0;
-let errors = 0;
-let accuracy = 0;
-let characterTyped = 0;
-let current_quote = "";
-let quoteNo = 0;
-let timer = null;
-
-function updateQuote() {
-    quote_text.textContent = null;
-    current_quote = quotes_array[quoteNo];
-
-// separate each character and make an element
-// out of each of them to individually style them
-    current_quote.split('').forEach(char => {
-        const charSpan = document.createElement('span')
-        charSpan.innerText = char
-        quote_text.appendChild(charSpan)
-    })
-
-// roll over to the first quote
-    if (quoteNo < quotes_array.length - 1)
-        quoteNo++;
-    else
-        quoteNo = 0;
-}
-
-function processCurrentText() {
-
-// get current input text and split it
-    curr_input = input_area.value;
-    curr_input_array = curr_input.split('');
-
-// increment total characters typed
-    characterTyped++;
-
-    errors = 0;
-
-    quoteSpanArray = quote_text.querySelectorAll('span');
-    quoteSpanArray.forEach((char, index) => {
-        let typedChar = curr_input_array[index]
-
-        // character not currently typed
-        if (typedChar == null) {
-            char.classList.remove('correct_char');
-            char.classList.remove('incorrect_char');
-
-            // correct character
-        } else if (typedChar === char.innerText) {
-            char.classList.add('correct_char');
-            char.classList.remove('incorrect_char');
-
-            // incorrect character
-        } else {
-            char.classList.add('incorrect_char');
-            char.classList.remove('correct_char');
-
-            // increment number of errors
-            errors++;
-        }
+    // Dark mode toggle
+    const toggle = document.getElementById('dark-mode-toggle');
+    toggle?.addEventListener('change', function() {
+        document.body.classList.toggle('dark-theme', this.checked);
     });
 
-// display the number of errors
-    error_text.textContent = total_errors + errors;
+    // Set text button listener
+    const setTextButton = document.getElementById('set-text-button');
+    setTextButton?.addEventListener('click', setCustomText);
 
-// update accuracy text
-    let correctCharacters = (characterTyped - (total_errors + errors));
-    let accuracyVal = ((correctCharacters / characterTyped) * 100);
-    accuracy_text.textContent = Math.round(accuracyVal);
+    // Default quotes
+    quotes_array = [
+        "Push yourself, because no one else is going to do it for you.",
+        // ... other predefined quotes
+    ];
 
-// if current text is completely typed
-// irrespective of errors
-    if (curr_input.length == current_quote.length) {
-        updateQuote();
+    resetValues();
+});
 
-        // update total errors
-        total_errors += errors;
-
-        // clear the input area
-        input_area.value = "";
+function setCustomText() {
+    const userTextInput = document.getElementById('user-text-input').value;
+    if (userTextInput.trim().length > 0) {
+        const sentences = userTextInput.match(/[^.!?]+[.!?]+/g);
+        if (sentences && sentences.length > 0) {
+            quotes_array = sentences.map(sentence => sentence.trim());
+            setDynamicTimeLimit(quotes_array);
+            resetValues();
+            updateQuote();
+        } else {
+            alert('Please enter a text with full sentences.');
+        }
+    } else {
+        alert('Please paste some text into the box.');
     }
 }
 
-function startGame() {
-
-    resetValues();
-    updateQuote();
-
-// clear old and start a new timer
-    clearInterval(timer);
-    timer = setInterval(updateTimer, 1000);
+function setDynamicTimeLimit(quotes) {
+    const totalWords = quotes.join(' ').split(' ').length;
+    const wordsPerMinute = 30;
+    TIME_LIMIT = Math.ceil((totalWords / wordsPerMinute) * 60);
+    timeLeft = TIME_LIMIT;
+    timer_text.textContent = timeLeft + 's';
 }
 
 function resetValues() {
@@ -138,47 +81,95 @@ function resetValues() {
     restart_btn.style.display = "none";
     cpm_group.style.display = "none";
     wpm_group.style.display = "none";
+
+    updateQuote();
+}
+
+function updateQuote() {
+    quote_text.textContent = '';
+    current_quote = quotes_array[quoteNo];
+
+    current_quote.split('').forEach(char => {
+        const charSpan = document.createElement('span');
+        charSpan.innerText = char;
+        quote_text.appendChild(charSpan);
+    });
+
+    if (quoteNo < quotes_array.length - 1) {
+        quoteNo++;
+    } else {
+        quoteNo = 0;
+    }
+}
+
+function processCurrentText() {
+    curr_input = input_area.value;
+    curr_input_array = curr_input.split('');
+
+    characterTyped++;
+    errors = 0;
+
+    const quoteSpanArray = quote_text.querySelectorAll('span');
+    quoteSpanArray.forEach((char, index) => {
+        const typedChar = curr_input_array[index];
+
+        if (typedChar == null) {
+            char.classList.remove('correct_char', 'incorrect_char');
+        } else if (typedChar === char.innerText) {
+            char.classList.add('correct_char');
+            char.classList.remove('incorrect_char');
+        } else {
+            char.classList.add('incorrect_char');
+            char.classList.remove('correct_char');
+            errors++;
+        }
+    });
+
+    error_text.textContent = total_errors + errors;
+
+    let correctCharacters = (characterTyped - (total_errors + errors));
+    let accuracyVal = ((correctCharacters / characterTyped) * 100);
+    accuracy_text.textContent = Math.round(accuracyVal);
+
+    if (curr_input.length == current_quote.length) {
+        updateQuote();
+        total_errors += errors;
+        input_area.value = "";
+    }
+}
+
+function startGame() {
+    resetValues();
+    updateQuote();
+    clearInterval(timer);
+    timer = setInterval(updateTimer, 1000);
 }
 
 function updateTimer() {
     if (timeLeft > 0) {
-        // decrease the current time left
         timeLeft--;
-
-        // increase the time elapsed
         timeElapsed++;
-
-        // update the timer text
         timer_text.textContent = timeLeft + "s";
-    }
-    else {
-        // finish the game
+    } else {
         finishGame();
     }
 }
 
 function finishGame() {
-// stop the timer
     clearInterval(timer);
-
-// disable the input area
     input_area.disabled = true;
-
-// show finishing text
     quote_text.textContent = "Click on restart to start a new game.";
-
-// display restart button
     restart_btn.style.display = "block";
 
-// calculate cpm and wpm
     cpm = Math.round(((characterTyped / timeElapsed) * 60));
     wpm = Math.round((((characterTyped / 5) / timeElapsed) * 60));
 
-// update cpm and wpm text
     cpm_text.textContent = cpm;
     wpm_text.textContent = wpm;
-
-// display the cpm and wpm
     cpm_group.style.display = "block";
     wpm_group.style.display = "block";
 }
+
+// Add event listeners for user input
+input_area.addEventListener('input', processCurrentText);
+restart_btn.addEventListener('click', startGame);

@@ -1,7 +1,58 @@
+@charset "UTF-8";
 body {
-  background-color: #fe9801;
+  background-color: #83d8ff;
   color: black;
   text-align: center;
+}
+body.dark-theme {
+  background-color: #091921;
+  color: white;
+}
+
+.toggle-switch {
+  position: relative;
+  width: 60px;
+  height: 28px;
+  margin: auto;
+  background: #83d8ff;
+  border-radius: 24px;
+  transition: background-color 0.3s linear;
+}
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.toggle-switch label {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 24px;
+  overflow: hidden;
+}
+.toggle-switch label:before {
+  content: "☀️";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  border-radius: 50%;
+  background: linear-gradient(to left, rgba(255, 255, 0, 0.8), rgba(255, 255, 255, 0));
+  transition: 0.4s;
+  text-align: center;
+  line-height: 20px;
+}
+.toggle-switch input:checked + label {
+  background: #091921;
+}
+.toggle-switch input:checked + label:before {
+  content: "🌑";
+  transform: translateX(32px);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0));
 }
 
 .container {
@@ -14,6 +65,9 @@ body {
   margin-bottom: 20px;
   font-size: 3rem;
   color: black;
+}
+body.dark-theme .heading {
+  color: white;
 }
 
 .header {
@@ -30,6 +84,10 @@ body {
   padding: 12px;
   border-radius: 20%;
   box-shadow: black 5px 8px 5px;
+}
+body.dark-theme .timer, body.dark-theme .errors, body.dark-theme .accuracy,
+body.dark-theme .cpm, body.dark-theme .wpm {
+  background-color: #555;
 }
 
 .cpm, .wpm {
@@ -55,6 +113,9 @@ body {
   padding: 25px;
   box-shadow: black 5px 8px 5px;
 }
+body.dark-theme .quote {
+  background-color: #555;
+}
 
 .input_area {
   background-color: #f5f5c6;
@@ -66,6 +127,9 @@ body {
   padding: 20px;
   border: 0px;
   box-shadow: black 5px 8px 5px;
+}
+body.dark-theme .input_area {
+  background-color: #444;
 }
 
 .restart_btn {
