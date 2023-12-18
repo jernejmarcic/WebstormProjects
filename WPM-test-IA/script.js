@@ -1,4 +1,4 @@
-// Initialize global variables
+// Global Variables
 let timer_text, accuracy_text, error_text, cpm_text, wpm_text, quote_text;
 let input_area, restart_btn, cpm_group, wpm_group, error_group, accuracy_group;
 let timeLeft, timeElapsed, total_errors, errors, accuracy, characterTyped;
@@ -6,18 +6,7 @@ let current_quote, quoteNo, timer, TIME_LIMIT = 60, quotes_array;
 
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize DOM elements
-    timer_text = document.querySelector(".curr_time");
-    accuracy_text = document.querySelector(".curr_accuracy");
-    error_text = document.querySelector(".curr_errors");
-    cpm_text = document.querySelector(".curr_cpm");
-    wpm_text = document.querySelector(".curr_wpm");
-    quote_text = document.querySelector(".quote");
-    input_area = document.querySelector(".input_area");
-    restart_btn = document.querySelector(".restart_btn");
-    cpm_group = document.querySelector(".cpm");
-    wpm_group = document.querySelector(".wpm");
-    error_group = document.querySelector(".errors");
-    accuracy_group = document.querySelector(".accuracy");
+    initializeElements();
 
     // Dark mode toggle
     const toggle = document.getElementById('dark-mode-toggle');
@@ -37,6 +26,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     resetValues();
 });
+
+function initializeElements() {
+    timer_text = document.querySelector(".curr_time");
+    accuracy_text = document.querySelector(".curr_accuracy");
+    error_text = document.querySelector(".curr_errors");
+    cpm_text = document.querySelector(".curr_cpm");
+    wpm_text = document.querySelector(".curr_wpm");
+    quote_text = document.querySelector(".quote");
+    input_area = document.querySelector(".input_area");
+    restart_btn = document.querySelector(".restart_btn");
+    cpm_group = document.querySelector(".cpm");
+    wpm_group = document.querySelector(".wpm");
+    error_group = document.querySelector(".errors");
+    accuracy_group = document.querySelector(".accuracy");
+
+    // Add event listeners for user input if elements exist
+    if (input_area && restart_btn) {
+        input_area.addEventListener('input', processCurrentText);
+        restart_btn.addEventListener('click', startGame);
+    }
+}
+
+
 
 function setCustomText() {
     const userTextInput = document.getElementById('user-text-input').value;
